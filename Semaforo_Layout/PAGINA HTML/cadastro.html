@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TaskFlow - Cadastro RFID</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0d3a33;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .wrapper {
+      background-color: #12423a;
+      padding: 40px 30px;
+      border-radius: 20px;
+      width: 700px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+      text-align: center;
+    }
+
+    .logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .logos img {
+      height: 60px;
+      margin: 0 10px;
+    }
+
+    h1 {
+      color: white;
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+
+    .content {
+      background-color: white;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .content h2 {
+      color: #12423a;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      background-color: #28a745;
+      cursor: pointer;
+      margin-top: 15px;
+      margin-right: 10px;
+    }
+
+    .btn:hover {
+      background-color: #218838;
+    }
+
+    #btnConfirmar {
+      display: block;
+      background-color: #007bff;
+    }
+
+    #btnConfirmar:hover {
+      background-color: #0056b3;
+    }
+
+    #btnListar {
+      background-color: #ffc107;
+      color: #000;
+    }
+
+    #btnListar:hover {
+      background-color: #e0a800;
+    }
+
+    .mensagem-rfid {
+      background-color: #f8f9fa;
+      border: 1px dashed #ccc;
+      padding: 15px;
+      border-radius: 10px;
+      color: #555;
+      text-align: center;
+      display: none;
+      margin-top: 15px;
+    }
+      .input-group {
+    display: flex; /* Define a div como um container flexível */
+    align-items: center; /* Alinha os itens verticalmente ao centro */
+    gap: 10px; /* Adiciona um espaço de 10px entre os itens (input e button) */
+    /* Você pode ajustar o valor de 'gap' para o espaçamento que preferir */
+  }
+
+  /* Opcional: Estilo para o input e o botão para ficarem mais bonitos */
+  .input-group input {
+    flex: 1; /* Faz com que o input ocupe todo o espaço disponível */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .input-group button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff; /* Cor do botão da sua imagem */
+    color: #fff;
+    cursor: pointer;
+  }
+  h3 {
+    color: #12423a;
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="logos">
+      <img src="./img/image-removebg-preview (1).png" alt="Pico">
+      <img src="https://upload.wikimedia.org/wikipedia/en/c/cb/Raspberry_Pi_Logo.svg" alt="Raspberry Logo">
+    </div>
+    <h1>Cadastro de Tag RFID</h1>
+
+    <div class="content">
+      <h2>Registrar Funcionário</h2>
+
+      <!-- <button class="btn" onclick="iniciarCadastro()">Cadastrar Tag</button> -->
+      <button class="btn" id="btnListar" onclick="listarFuncionarios()">Listar Funcionários</button>
+
+      
+      <div id="campoNome">
+        <h3>Cadastrar novo nome do funcionário:</h3>
+        
+        <div class="input-group">
+          <input type="text" id="nome" placeholder="Digite o nome completo">
+          <button id="btnConfirmarNome" onclick="confirmarNome()">Cadastrar</button>
+        </div>
+      </div>
+      
+      <div id="mensagem-rfid" class="mensagem-rfid"></div>
+
+      <p id="mensagem-rfid" style="display: none;"></p>
+    </div>
+  </div>
+
+  <script>
+    // O estado inicial do formulário deve mostrar o campo de nome e o botão de confirmação.
+    // A mensagem de RFID fica oculta no início.
+    document.addEventListener('DOMContentLoaded', (event) => {
+      document.getElementById("campoNome").style.display = "block";
+      document.getElementById("btnConfirmarNome").style.display = "block";
+      document.getElementById("mensagem-rfid").style.display = "none";
+    });
+
+    let cronometro;
+    let tempoRestante = 10;
+    // Reseta o tempo restante para 10 segundos
+    tempoRestante = 10;
+
+    // Esta função é chamada quando o usuário insere o nome e clica em "Confirmar" ou pressiona Enter.
+    function confirmarNome() {
+      const nome = document.getElementById("nome").value.trim();
+      const mensagem = document.getElementById("mensagem-rfid")
+      const campoNome = document.getElementById("campoNome");
+      const btnConfirmarNome = document.getElementById("btnConfirmarNome")
+
+      // Oculta o campo de nome e o botão para pedir o cartão RFID.
+    campoNome.style.display = "none";
+    btnConfirmarNome.style.display = "none";
+    
+    // Reseta o tempo restante para 10 segundos
+    tempoRestante = 10;
+
+    // Mostra a mensagem inicial com o cronômetro
+    mensagem.innerText = `Olá, ${nome}! Agora, por favor, aproxime o cartão RFID. Você tem ${tempoRestante} segundos.`;
+    mensagem.style.display = "block";
+
+    // Inicia o cronômetro
+    cronometro = setInterval(() => {
+      tempoRestante--;
+
+      if (tempoRestante > 0) {
+        // Atualiza a mensagem com o tempo restante
+        mensagem.innerText = `Olá, ${nome}! Agora, por favor, aproxime o cartão RFID. Você tem ${tempoRestante} segundos.`;
+      } else {
+        // Para o cronômetro quando o tempo acaba
+        clearInterval(cronometro);
+        
+        // Exibe a mensagem de tempo esgotado
+        mensagem.innerText = "Tempo esgotado! Por favor, tente novamente.";
+        
+        // Opcionalmente, pode resetar a tela para um novo cadastro
+        setTimeout(() => {
+          mensagem.style.display = "none";
+          document.getElementById("nome").value = "";
+          campoNome.style.display = "block";
+          btnConfirmarNome.style.display = "inline-block";
+        }, 3000); // Exibe a mensagem por 3 segundos antes de resetar.
+      }
+    }, 1000); // 1000 milissegundos = 1 segundo
+
+    // Aqui, você ainda precisa de uma lógica para detectar o cartão.
+    // O seu código original tinha um setTimeout que simulava a detecção.
+    // Você pode manter essa lógica, mas precisa de uma forma de parar o cronômetro
+    // quando o cartão for detectado antes do tempo acabar.
+    // Vamos adicionar isso!
+
+    // Simulação de detecção do cartão RFID (remova isso e use sua lógica real)
+    setTimeout(() => {
+      // Se o cronômetro ainda estiver rodando (tempoRestante > 0), isso significa
+      // que o cartão foi detectado a tempo.
+      if (tempoRestante > 0) {
+        clearInterval(cronometro); // Interrompe o cronômetro
+        
+        mensagem.innerText = `Cartão detectado! Funcionário "${nome}" cadastrado com sucesso!`;
+        
+        // Reinicia a interface para o próximo cadastro
+        setTimeout(() => {
+          mensagem.style.display = "none";
+          document.getElementById("nome").value = "";
+          campoNome.style.display = "block";
+          btnConfirmarNome.style.display = "inline-block";
+        }, 3000);
+      }
+    }, 10000); // Simula a detecção em 5 segundos, por exemplo.
+    // O tempo aqui deve ser menor que o tempo total do cronômetro (10 segundos).
+  }
+
+    // Funções adicionais para o resto da sua aplicação.
+    function listarFuncionarios() {
+      alert("Aqui será exibida a lista de funcionários cadastrados.");
+    }
+  </script>
+</body>
+</html>

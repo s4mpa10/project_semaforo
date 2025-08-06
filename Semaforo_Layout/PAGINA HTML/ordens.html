@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TaskFlow</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0d3a33;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .wrapper {
+      background-color: #12423a;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      width: 700px;
+    }
+
+    .logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .logos img {
+      height: 60px;
+      margin: 0 10px;
+    }
+
+    .wrapper h1 {
+      color: white;
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+
+    .content {
+      background-color: white;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: left;
+    }
+
+    .content h2 {
+      color: #12423a;
+      font-size: 22px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .card {
+      background-color: #f4f4f4;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-header strong {
+      font-size: 18px;
+      color: #333;
+    }
+
+    .btn-detalhar {
+      background-color: #2b57db;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .btn-detalhar:hover {
+      background-color: #1f47c5;
+    }
+
+    .detalhes {
+      display: none;
+      margin-top: 15px;
+      border-top: 1px solid #ccc;
+      padding-top: 15px;
+    }
+
+    .detalhes span {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .detalhes .boxe {
+      color: #2b57db;
+      font-weight: bold;
+    }
+
+    .acoes {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      gap: 10px;
+    }
+
+    .acoes button {
+      flex: 1;
+      padding: 10px;
+      font-size: 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .iniciar { background-color: #28a745; }
+    .pausar { background-color: #ffc107; color: black; }
+    .finalizar { background-color: #dc3545; }
+
+    .iniciar:hover { background-color: #218838; }
+    .pausar:hover { background-color: #e0a800; }
+    .finalizar:hover { background-color: #c82333; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="logos">
+      <img src="./img/image-removebg-preview (1).png" alt="Pico">
+      <img src="https://upload.wikimedia.org/wikipedia/en/c/cb/Raspberry_Pi_Logo.svg" alt="Raspberry Logo">
+    </div>
+    <h1>TaskFlow</h1>
+
+    <div class="content">
+      <h2>Ordens de Serviço</h2>
+
+      <!-- Tarefa 1 -->
+      <div class="card">
+        <div class="card-header">
+          <strong>Trocar Filtro de Óleo</strong>
+          <button class="btn-detalhar" onclick="toggleDetalhes(this)">Detalhar</button>
+        </div>
+        <div class="detalhes">
+          <span><strong>Descrição:</strong> Substituir filtro de óleo</span>
+          <span><strong>Tempo estimado:</strong> 1 hora</span>
+          <span><strong>Veículo:</strong> Palio 2012</span>
+          <span><strong>Boxe de manutenção:</strong> <span class="boxe">Boxe 3</span></span>
+          <span><strong>Mecânico:</strong> João</span>
+          <div class="acoes">
+            <button class="iniciar">Iniciar</button>
+            <button class="pausar">Pausar</button>
+            <button class="finalizar">Finalizar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tarefa 2 -->
+      <div class="card">
+        <div class="card-header">
+          <strong>Inspecionar Freios</strong>
+          <button class="btn-detalhar" onclick="toggleDetalhes(this)">Detalhar</button>
+        </div>
+        <div class="detalhes">
+          <span><strong>Descrição:</strong> Verificar pastilhas e discos</span>
+          <span><strong>Tempo estimado:</strong> 1h30</span>
+          <span><strong>Veículo:</strong> HB20 2020</span>
+          <span><strong>Boxe de manutenção:</strong> <span class="boxe">Boxe 7</span></span>
+          <span><strong>Mecânico:</strong> Maria</span>
+          <div class="acoes">
+            <button class="iniciar">Iniciar</button>
+            <button class="pausar">Pausar</button>
+            <button class="finalizar">Finalizar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tarefa 3 -->
+      <div class="card">
+        <div class="card-header">
+          <strong>Alinhamento</strong>
+          <button class="btn-detalhar" onclick="toggleDetalhes(this)">Detalhar</button>
+        </div>
+        <div class="detalhes">
+          <span><strong>Descrição:</strong> Verificação e ajuste da geometria das rodas</span>
+          <span><strong>Tempo estimado:</strong> 2 horas</span>
+          <span><strong>Veículo:</strong> Ford Ka 2015</span>
+          <span><strong>Boxe de manutenção:</strong> <span class="boxe">Boxe 12</span></span>
+          <span><strong>Mecânico:</strong> Pedro</span>
+          <div class="acoes">
+            <button class="iniciar">Iniciar</button>
+            <button class="pausar">Pausar</button>
+            <button class="finalizar">Finalizar</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function toggleDetalhes(botao) {
+      const detalhes = botao.parentElement.nextElementSibling;
+      const visivel = detalhes.style.display === 'block';
+      detalhes.style.display = visivel ? 'none' : 'block';
+      botao.textContent = visivel ? 'Detalhar' : 'Ver menos';
+    }
+  </script>
+</body>
+</html>
