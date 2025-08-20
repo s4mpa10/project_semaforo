@@ -17,15 +17,15 @@ void setup() {
 
   // Configura os pinos dos relés como saída
   pinMode(RELAY_PIN_VERDE, OUTPUT);
-  pinMode(RELAY_PIN_AMARELO, OUTPUT);
-  pinMode(RELAY_PIN_VERMELHO, OUTPUT);
+  // pinMode(RELAY_PIN_AMARELO, OUTPUT);
+  // pinMode(RELAY_PIN_VERMELHO, OUTPUT);
 
   // Inicializa o relé no estado desligado
   // O estado inicial depende da lógica de acionamento
   #ifdef HIGH_LEVEL_TRIGGER
     digitalWrite(RELAY_PIN_VERDE, LOW); // LOW ativa o relé, então HIGH o mantém desligado
-    digitalWrite(RELAY_PIN_AMARELO, LOW); // LOW ativa o relé, então HIGH o mantém desligado
-    digitalWrite(RELAY_PIN_VERMELHO, LOW); // LOW ativa o relé, então HIGH o mantém desligado
+    // digitalWrite(RELAY_PIN_AMARELO, LOW); 
+    // digitalWrite(RELAY_PIN_VERMELHO, LOW); 
     Serial.println("Relé configurado para acionamento por LOW. Desligado no início.");
   #endif
 
