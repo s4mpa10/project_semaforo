@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>ESP32 Controle de Lâmpadas</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; }
+    h1 { color: #0F3376; padding: 2vh; }
+    button { padding: 10px 24px; font-size: 1rem; margin: 5px; }
+  </style>
+</head>
+<body>
+  <h1>ESP32 Controle de Lâmpadas</h1>
+  <p>Clique em um botão para alternar o relé:</p>
+  <button onclick="toggleRele(1)">Relé 1 (Vermelho)</button>
+  <button onclick="toggleRele(2)">Relé 2 (Amarelo)</button>
+  <button onclick="toggleRele(3)">Relé 3 (Verde)</button>
+  <p id="status">Selecione um relé...</p>
+  <script>
+    function toggleRele(num) {
+      fetch('/toggle' + num).then(response => response.text()).then(state => {
+        document.getElementById('status').innerText = 'Relé ' + num + ' está ' + state;
+      });
+    }
+  </script>
+</body>
+</html>
