@@ -10,8 +10,8 @@ void setup() {
     while (!Serial);
 
     rfidManager.setup();
-    pinMode(PIN_GREEN, OUTPUT);
-    digitalWrite(PIN_GREEN, LOW);
+    // pinMode(PIN_GREEN, OUTPUT);
+    // digitalWrite(PIN_GREEN, LOW);
 
     Serial.println(F("Sistema RFID pronto."));
     Serial.println(F("Aproxime uma tag para leitura."));
@@ -38,7 +38,7 @@ void loop() {
         digitalWrite(PIN_GREEN, HIGH);
         Serial.println(F("Lâmpada verde ligado!"));
         delay(2000);
-        digitalWrite(PIN_GREEN, LOW);
+        // digitalWrite(PIN_GREEN, LOW);
         Serial.println(F("Lâmpada verde desligada!"));
 
         rfidManager.haltAndStop();
