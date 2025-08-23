@@ -267,42 +267,43 @@
 </head>
 <body>
     <div class="left-panel">
-        <img src="https://www.newland.com.br/img/logo-toyota-newland.png" alt="Toyota Logo" class="logo" />
+        <img src="img/toyota.png" alt="Toyota Logo" class="logo" />
         <p>Sistema de Monitoramento de Atividades e Manutenção de Veículos.</p>
         <div>
-            <img src="https://media.istockphoto.com/id/505414590/vector/traffic-light-icon.webp?b=1&s=612x612&w=0&k=20&c=BG2Vtap-F17FYwZo8TmdjkspaF2bWxifjMCRphw3oPE=" alt="Semáforo" class="main-image" />
+            <img src="img/semaforo_def.png" alt="Semáforo" class="main-image" />
         </div>
     </div>
     <div class="right-panel">
         <div class="form-container">
             <div class="top-logos">
+                <img src="img/raspberry.png" alt="Raspberry Pico" class="pico-img" />
                 <img src="https://upload.wikimedia.org/wikipedia/en/c/cb/Raspberry_Pi_Logo.svg" alt="Raspberry Logo" class="pi-logo" />
             </div>
             <h1>TaskFlow</h1>
             <label for="tagInput">Identificação</label>
             <div class="input-and-button">
                 <input type="text" id="tagInput" name="tagInput" placeholder="Aguardando Verificação" readonly />
-                <button class="refresh-btn" onclick="readTag()"><i class="fa-solid fa-rotate-right"></i></button>
+                <button class="refresh-btn" onclick="startReading()"><i class="fa-solid fa-rotate-right"></i></button>
             </div>
             <div class="buttons">
                 <button class="btn-acessar" id="btnAcessar" onclick="window.location.href='ordens.html'" disabled>Acessar</button>
-                <button class="btn-azul" onclick="window.location.href='cadastro.html'">Cadastrar-se</button>
+                <button class="btn-azul" onclick="window.location.href='cadastro.html'">Cadastrar Tag</button>
             </div>
         </div>
         <div class="partner-logos">
-            <img src="https://pbs.twimg.com/profile_images/438771627854024704/Az4OY07a_400x400.png" alt="Instituto Federal" class="partner-logo-img" />
-            <img src="https://www.newland.com.br/img/logo-toyota-newland.png" alt="Toyota" class="partner-logo-img" />
-            <img src="https://moodle.embarcatech.cepedi.org.br/pluginfile.php/1/theme_moove/logo/1733422525/Group%20658.png" alt="Embarcados" class="partner-logo-img" />
+            <img src="img/IF.png" alt="Instituto Federal" class="partner-logo-img" />
+            <img src="img/toyota.png" alt="Toyota" class="partner-logo-img" />
+            <img src="img/embaraca2.png" alt="Embarcados" class="partner-logo-img" />
         </div>
     </div>
 
     <script>
         const tagInput = document.getElementById('tagInput');
         const btnAcessar = document.getElementById('btnAcessar');
+        let readingInterval;
         
         // Estado inicial do campo
         const placeholderText = 'Aguardando Verificação';
-        delay(1000);
 
         function readTag() {
             // Atualiza o placeholder para indicar que a leitura está em andamento
@@ -318,12 +319,15 @@
                     return response.json();
                 })
                 .then(data => {
-                    if (data && data.status === 'success' && data.name) {
+                    if (data && data.status === "success" && data.name) {
+                        console.log(data.status);
                         // Leitura bem-sucedida com nome
                         tagInput.value = data.name;
                         btnAcessar.disabled = false;
                         // Para de ler automaticamente
                         clearInterval(readingInterval);
+                        console.log("Chegou até aqui...");
+
                     } else {
                         // Leitura não encontrou uma tag ou a resposta está 'vazia'
                         tagInput.value = placeholderText;
@@ -335,27 +339,22 @@
                     // Em caso de erro, volta para o estado inicial
                     tagInput.value = 'Erro na leitura';
                     btnAcessar.disabled = true;
+                    clearInterval(readingInterval);
                 });
         }
 
-
-        // Inicia a leitura automática a cada 2 segundos
-        window.onload = function() {
-            // // Limpa o intervalo anterior para evitar múltiplas execuções
+        function startReading() {
             if (readingInterval) {
                 clearInterval(readingInterval);
             }
-            // Garante o estado inicial do campo e do botão
             tagInput.value = placeholderText;
             btnAcessar.disabled = true;
-            // Inicia a leitura automática a cada 1 segundo
-            setInterval(readTag, 1000);
-        };
+            readingInterval = setInterval(readTag, 1000);
+        }
+    
+        // Inicia a leitura automática a cada 2 segundos
+        window.onload = startReading;
 
-        // window.onload = function() {
-        //     tagInput.value = placeholderText;
-        //     setInterval(readTag, 1000);
-        // };
     </script>
 </body>
 </html>

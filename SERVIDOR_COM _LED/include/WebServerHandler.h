@@ -18,6 +18,8 @@ private:
     void handleReadRFID();
     void handleWriteRFID();
     void handleOrdersPage();
+    void handleStaticFile(const char* path, const char* contentType);
+    void handleCadastroPage();
 
     // HTML da página web (pode ser movido para um arquivo .h separado)
     // const char* htmlContent = R"rawliteral(

@@ -21,6 +21,42 @@ void WebServerHandler::setupRoutes() {
     server.on("/ordens.html", [this]() { 
         this->handleOrdersPage();
     });
+
+    server.on("/cadastro.html", [this]() {
+        this->handleCadastroPage();
+    });
+
+    server.on("/img/raspberry.png", [this]() {
+        this->handleStaticFile("/img/raspberry.png", "image/png");
+    });
+
+    server.on("/img/toyota.png", [this]() {
+        this->handleStaticFile("/img/toyota.png", "image/png");
+    });
+
+    server.on("/img/IF.png", [this]() {
+        this->handleStaticFile("/img/IF.png", "image/png");
+    });
+
+    server.on("/img/embaraca2.png", [this]() {
+        this->handleStaticFile("/img/embaraca2.png", "image/png");
+    });
+
+    server.on("/img/semaforo_def.png", [this]() {
+        this->handleStaticFile("/img/semaforo_def.png", "image/png");
+    });
+
+}
+
+// Implemente a função auxiliar handleStaticFile
+void WebServerHandler::handleStaticFile(const char* path, const char* contentType) {
+    File file = SPIFFS.open(path, "r");
+    if (!file) {
+        server.send(404, "text/plain", "Arquivo nao encontrado");
+        return;
+    }
+    server.streamFile(file, contentType);
+    file.close();
 }
 
 void WebServerHandler::handleRoot() {
@@ -45,9 +81,19 @@ void WebServerHandler::handleOrdersPage() { // Adicione a implementação
     file.close();
 }
 
+void WebServerHandler::handleCadastroPage() {
+    File file = SPIFFS.open("/cadastro.html", "r");
+    if(!file) {
+        server.send(404, "text/plain", "Arquivo nao encontrado");
+        return;
+    }
+    server.streamFile(file, "text/html");
+    file.close();
+}
+
 void WebServerHandler::handleReadRFID() {
     // A lógica de leitura do status pode ser mais complexa, mas vamos simplificar
-    String rfidStatus = rfidManager.isNewCardPresentAndRead() ? "success" : "Aguardando tag...";
+    String rfidStatus = rfidManager.isNewCardPresentAndRead() ? "success" : "waiting";
     
     String response = "{";
     response += "\"status\":\"" + rfidStatus + "\",";

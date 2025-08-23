@@ -58,6 +58,7 @@ String RFIDManager::getUID() {
 }
 
 String RFIDManager::getName() {
+    currentName.trim();
     return currentName;
 }
 

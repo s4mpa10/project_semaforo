@@ -5,8 +5,8 @@
 #include "WebServerHandler.h"
 
 // Substitua com as suas credenciais de rede
-const char* ssid = "Sampaio";
-const char* password = "03113012S";
+const char* ssid = "S23 Ultra de Universitario";
+const char* password = "senha123";
 
 // Pinagem do MFRC522
 #define SS_PIN 5
