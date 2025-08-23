@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TaskFlow - Cadastro RFID</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0d3a33;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .wrapper {
+      background-color: #12423a;
+      padding: 40px 30px;
+      border-radius: 20px;
+      width: 700px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+      text-align: center;
+    }
+
+    .logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .logos img {
+      height: 60px;
+      margin: 0 10px;
+    }
+
+    h1 {
+      color: white;
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+
+    .content {
+      background-color: white;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .content h2 {
+      color: #12423a;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .form-control {
+      margin-top: 20px;
+      display: none;
+    }
+
+    .form-control label {
+      display: block;
+      margin-bottom: 6px;
+      color: #333;
+      text-align: left;
+    }
+
+    .form-control input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    .btn {
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      background-color: #28a745;
+      cursor: pointer;
+      margin-top: 15px;
+      margin-right: 10px;
+    }
+
+    .btn:hover {
+      background-color: #218838;
+    }
+
+    #btnConfirmar {
+      display: none;
+      background-color: #007bff;
+    }
+
+    #btnConfirmar:hover {
+      background-color: #0056b3;
+    }
+
+    #btnListar {
+      background-color: #ffc107;
+      color: #000;
+    }
+
+    #btnListar:hover {
+      background-color: #e0a800;
+    }
+
+    .mensagem-rfid {
+      background-color: #f8f9fa;
+      border: 1px dashed #ccc;
+      padding: 15px;
+      border-radius: 10px;
+      color: #555;
+      text-align: center;
+      display: none;
+      margin-top: 15px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="logos">
+      <img src="./img/raspberry.png" alt="Pico">
+      <img src="https://upload.wikimedia.org/wikipedia/en/c/cb/Raspberry_Pi_Logo.svg" alt="Raspberry Logo">
+    </div>
+    <h1>Cadastro de Tag RFID</h1>
+
+    <div class="content">
+      <h2>Registrar Funcionário</h2>
+
+      <button class="btn" onclick="iniciarCadastro()">Cadastrar Tag</button>
+      <button class="btn" id="btnListar" onclick="listarFuncionarios()">Listar Funcionários</button>
+
+      <div id="mensagem-rfid" class="mensagem-rfid"></div>
+
+      <div class="form-control" id="campoNome">
+        <label for="nome">Nome do Funcionário:</label>
+        <input type="text" id="nome" placeholder="Digite o nome completo" />
+      </div>
+
+      <button id="btnConfirmar" class="btn" onclick="confirmarCadastro()">Confirmar Cadastro</button>
+    </div>
+  </div>
+
+  <script>
+    function iniciarCadastro() {
+      const mensagem = document.getElementById("mensagem-rfid");
+      const campoNome = document.getElementById("campoNome");
+      const btnConfirmar = document.getElementById("btnConfirmar");
+
+      mensagem.innerText = "Você tem 10 segundos para aproximar o cartão RFID...";
+      mensagem.style.display = "block";
+      campoNome.style.display = "none";
+      btnConfirmar.style.display = "none";
+
+      setTimeout(() => {
+        mensagem.innerText = "Cartão detectado! Agora digite o nome do funcionário.";
+        campoNome.style.display = "block";
+        btnConfirmar.style.display = "inline-block";
+      }, 10000); // 10 segundos
+    }
+
+    function confirmarCadastro() {
+      const nome = document.getElementById("nome").value.trim();
+      const mensagem = document.getElementById("mensagem-rfid");
+
+      if (!nome) {
+        alert("Por favor, digite o nome do funcionário.");
+        return;
+      }
+
+      mensagem.innerText = `Funcionário "${nome}" cadastrado com sucesso com a tag RFID!`;
+    }
+
+    function listarFuncionarios() {
+      alert("Aqui será exibida a lista de funcionários cadastrados."); 
+      // Aqui no futuro você pode abrir um modal ou redirecionar para uma nova página
+    }
+  </script>
+</body>
+</html>
