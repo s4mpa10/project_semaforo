@@ -6,81 +6,83 @@
   <link rel="stylesheet" href="css/ordens.css">
   <script src="js/ordens.js"></script>
   <title>TaskFlow</title>
-
 </head>
+
 <body>
   <div class="wrapper">
     <div class="logos">
-      <img src="./img/raspberry.png" alt="Pico">
-      <img src="https://upload.wikimedia.org/wikipedia/en/c/cb/Raspberry_Pi_Logo.svg" alt="Raspberry Logo">
-    </div>
-    <h1>TaskFlow</h1>
-
-    <div class="content">
-      <h2>Ordens de Serviço</h2>
-
-      <!-- Tarefa 1 da OS -->
-      <div class="card">
-        <div class="card-header">
-          <strong>Trocar Filtro de Óleo</strong>
-          <button class="btn-detalhar" onclick="toggleDetalhes(this)">Detalhar</button>
-        </div>
-        <div class="detalhes">
-          <span><strong>Descrição:</strong> Substituir filtro de óleo</span>
-          <span><strong>Tempo estimado:</strong> 1 hora</span>
-          <span><strong>Veículo:</strong> Palio 2012</span>
-          <span><strong>Boxe de manutenção:</strong> <span class="boxe">Boxe 3</span></span>
-          <span><strong>Mecânico:</strong> João</span>
-          <div class="acoes">
-            <button class="iniciar">Iniciar</button>
-            <button class="pausar">Pausar</button>
-            <button class="finalizar">Finalizar</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tarefa 2 da OS -->
-      <div class="card">
-        <div class="card-header">
-          <strong>Inspecionar Freios</strong>
-          <button class="btn-detalhar" onclick="toggleDetalhes(this)">Detalhar</button>
-        </div>
-        <div class="detalhes">
-          <span><strong>Descrição:</strong> Verificar pastilhas e discos</span>
-          <span><strong>Tempo estimado:</strong> 1h30</span>
-          <span><strong>Veículo:</strong> HB20 2020</span>
-          <span><strong>Boxe de manutenção:</strong> <span class="boxe">Boxe 7</span></span>
-          <span><strong>Mecânico:</strong> Maria</span>
-          <div class="acoes">
-            <button class="iniciar">Iniciar</button>
-            <button class="pausar">Pausar</button>
-            <button class="finalizar">Finalizar</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tarefa 3 da OS -->
-      <div class="card">
-        <div class="card-header">
-          <strong>Alinhamento</strong>
-          <button class="btn-detalhar" onclick="toggleDetalhes(this)">Detalhar</button>
-        </div>
-        <div class="detalhes">
-          <span><strong>Descrição:</strong> Verificação e ajuste da geometria das rodas</span>
-          <span><strong>Tempo estimado:</strong> 2 horas</span>
-          <span><strong>Veículo:</strong> Ford Ka 2015</span>
-          <span><strong>Boxe de manutenção:</strong> <span class="boxe">Boxe 12</span></span>
-          <span><strong>Mecânico:</strong> Pedro</span>
-          <div class="acoes">
-            <button class="iniciar">Iniciar</button>
-            <button class="pausar">Pausar</button>
-            <button class="finalizar">Finalizar</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <img src="img/raspberry.png" alt="Pico">
+    <img src="https://upload.wikimedia.org/wikipedia/en/c/cb/Raspberry_Pi_Logo.svg" alt="Raspberry Logo">
   </div>
+  
+  <h1>TaskFlow</h1>
+
+  <div class="content">
+    <h2>Ordens de Serviço</h2>
+
+    <div class="card">
+      <div class="card-header">
+        <strong>Trocar Filtro de Óleo</strong>
+        <button class="btn-detalhar" onclick="toggleDetalhes(this)">Detalhar</button>
+      </div>
+      
+      <div class="detalhes">
+        <span><strong>Descrição:</strong> Substituir filtro de óleo</span>
+        <span><strong>Tempo estimado:</strong> 1 hora</span>
+        <span><strong>Veículo:</strong> Palio 2012</span>
+        <span><strong>Boxe de manutenção:</strong> <span class="boxe">Boxe 3</span></span>
+        <span><strong>Mecânico:</strong> João</span>
+        <div class="acoes">
+          <button class="iniciar">Iniciar</button>
+          <button class="pausar">Pausar</button>
+          <button class="finalizar">Finalizar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <strong>Inspecionar Freios</strong>
+        <button class="btn-detalhar" onclick="toggleDetalhes(this)">Detalhar</button>
+      </div>
+      
+      <div class="detalhes">
+        <span><strong>Descrição:</strong> Verificar pastilhas e discos</span>
+        <span><strong>Tempo estimado:</strong> 1h30</span>
+        <span><strong>Veículo:</strong> HB20 2020</span>
+        <span><strong>Boxe de manutenção:</strong> <span class="boxe">Boxe 7</span></span>
+        <span><strong>Mecânico:</strong> Maria</span>
+        
+        <div class="acoes">
+          <button class="iniciar">Iniciar</button>
+          <button class="pausar">Pausar</button>
+          <button class="finalizar">Finalizar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <strong>Alinhamento</strong>
+        <button class="btn-detalhar" onclick="toggleDetalhes(this)">Detalhar</button>
+      </div>
+      
+      <div class="detalhes">
+        <span><strong>Descrição:</strong> Verificação e ajuste da geometria das rodas</span>
+        <span><strong>Tempo estimado:</strong> 2 horas</span>
+        <span><strong>Veículo:</strong> Ford Ka 2015</span>
+        <span><strong>Boxe de manutenção:</strong> <span class="boxe">Boxe 12</span></span>
+        <span><strong>Mecânico:</strong> Pedro</span>
+        <div class="acoes">
+          <button class="iniciar">Iniciar</button>
+          <button class="pausar">Pausar</button>
+          <button class="finalizar">Finalizar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 </body>
 </html>

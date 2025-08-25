@@ -39,7 +39,7 @@ function readTag() {
         btnAcessar.disabled = true;
         clearInterval(readingInterval);
     });
-}
+} 
 
 function startReading() {
     if (readingInterval) {

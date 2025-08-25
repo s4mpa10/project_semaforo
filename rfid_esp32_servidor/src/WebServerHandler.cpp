@@ -45,6 +45,10 @@ void WebServerHandler::setupRoutes() {
         this->handleStaticFile("/img/embaraca2.png", "image/png");
     });
 
+    server.on("/img/semaforo_def.png", [this]() {
+        this->handleStaticFile("/img/semaforo_def.png", "image/png");
+    });
+
     //Rotas CSS
     server.on("/css/inicial.css", [this]() {
         this->handleStaticFile("/css/inicial.css", "text/css");
