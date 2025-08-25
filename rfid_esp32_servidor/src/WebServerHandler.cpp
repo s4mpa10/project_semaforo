@@ -149,4 +149,35 @@ void WebServerHandler::handleWriteRFID() {
     }
 }
 
+String getContentType(String filename) {
+  if (filename.endsWith(".html")) return "text/html";
+  else if (filename.endsWith(".css")) return "text/css";
+  else if (filename.endsWith(".js")) return "text/javascript";
+  else if (filename.endsWith(".png")) return "image/png";
+  else if (filename.endsWith(".jpg")) return "image/jpeg";
+  return "text/plain";
+}
 
+
+bool WebServerHandler::handleFileRead(String path) {
+  if (path.endsWith("/")) {
+    path += "Inicial.HTML"; // Redireciona a raiz para Inicial.HTML
+  }
+
+  // Certifica-se de que a página HTML é sempre enviada como "text/html"
+  if (path.endsWith("Inicial.HTML")) {
+    File file = SPIFFS.open(path, "r");
+    server.streamFile(file, "text/html");
+    file.close();
+    return true;
+  }
+  
+  String contentType = getContentType(path);
+  if (SPIFFS.exists(path)) {
+    File file = SPIFFS.open(path, "r");
+    server.streamFile(file, contentType);
+    file.close();
+    return true;
+  }
+  return false;
+}

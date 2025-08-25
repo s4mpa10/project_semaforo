@@ -4,136 +4,24 @@
 #include <SPIFFS.h>
 #include "RFIDManager.h"
 #include "WebServerHandler.h"
+#include "SemaforoHandler.h"
 
 // Substitua com as suas credenciais de rede
-const char* ssid = "S23 Ultra de Universitario";
-const char* password = "senha123";
+const char* ssid = "*******";
+const char* password = "*******";
 
 // Pinagem do MFRC522
 #define SS_PIN 5
 #define RST_PIN 22
 
-// Pinos dos relés
-const int releVermelho = 27;
-const int releAmarelo = 26;
-const int releVerde = 25;
-
-// Estados do semáforo
-enum SemaforoEstado {
-  OFF,
-  VERDE,
-  AMARELO,
-  VERMELHO,
-  PISCA_ALERTA
-};
-
-SemaforoEstado estadoAtual = OFF;
-unsigned long tempoInicioTarefa = 0;
-bool tarefaPausada = false;
-
 // Instâncias das classes
 WebServer server(80);
 RFIDManager rfidManager(SS_PIN, RST_PIN);
 WebServerHandler webServerHandler(server, rfidManager);
-
-// ===================================
-// FUNÇÕES AUXILIARES
-// ===================================
-
-// String getContentType(String filename) {
-//   if (filename.endsWith(".html")) return "text/html";
-//   else if (filename.endsWith(".css")) return "text/css";
-//   else if (filename.endsWith(".js")) return "text/javascript";
-//   else if (filename.endsWith(".png")) return "image/png";
-//   else if (filename.endsWith(".jpg")) return "image/jpeg";
-//   return "text/plain";
-// }
-
-bool handleFileRead(String path) {
-  if (path.endsWith("/")) {
-    path += "Inicial.HTML"; // Redireciona a raiz para Inicial.HTML
-  }
-
-  // Certifica-se de que a página HTML é sempre enviada como "text/html"
-  if (path.endsWith("Inicial.HTML")) {
-    File file = SPIFFS.open(path, "r");
-    server.streamFile(file, "text/html");
-    file.close();
-    return true;
-  }
-  
-  String contentType = getContentType(path);
-  if (SPIFFS.exists(path)) {
-    File file = SPIFFS.open(path, "r");
-    server.streamFile(file, contentType);
-    file.close();
-    return true;
-  }
-  return false;
-}
-
-// Funções de controle dos relés
-void desligarTodosRele() {
-  digitalWrite(releVermelho, LOW);
-  digitalWrite(releAmarelo, LOW);
-  digitalWrite(releVerde, LOW);
-}
-
-void ligarReleVerde() {
-  desligarTodosRele();
-  digitalWrite(releVerde, HIGH);
-}
-
-void ligarReleAmarelo() {
-  desligarTodosRele();
-  digitalWrite(releAmarelo, HIGH);
-}
-
-void ligarReleVermelho() {
-  desligarTodosRele();
-  digitalWrite(releVermelho, HIGH);
-}
-
-// ===================================
-// HANDLERS DO SERVIDOR
-// ===================================
-
-void handleIniciar() {
-  if (!tarefaPausada) {
-    tempoInicioTarefa = millis();
-    estadoAtual = VERDE;
-    ligarReleVerde();
-  } else {
-    tempoInicioTarefa = millis() - (60000 - (tempoInicioTarefa + 60000 - millis()));
-    tarefaPausada = false;
-  }
-  server.send(200, "text/plain", "Tarefa iniciada!");
-}
-
-void handlePausar() {
-  tarefaPausada = true;
-  desligarTodosRele();
-  server.send(200, "text/plain", "Tarefa pausada.");
-}
-
-void handleFinalizar() {
-  desligarTodosRele();
-  estadoAtual = OFF;
-  tarefaPausada = false;
-  server.send(200, "text/plain", "Tarefa finalizada.");
-}
+SemaforoHandler semaforoHandler(server);
 
 void setup() {
     Serial.begin(115200);
-
-    pinMode(releVermelho, OUTPUT);
-    pinMode(releAmarelo, OUTPUT);
-    pinMode(releVerde, OUTPUT);
-
-    desligarTodosRele();
-    
-    delay(1000);
-    Serial.println("Iniciando setup...");
 
     // Inicializa o sistema de arquivos SPIFFS no início
     if (!SPIFFS.begin(true)) {
@@ -156,18 +44,14 @@ void setup() {
     Serial.print("Endereço IP: ");
     Serial.println(WiFi.localIP());
 
+    // Inicializa os relés e o RFID
+    semaforoHandler.setupRelays();
     rfidManager.begin();
     webServerHandler.setupRoutes();
 
-    server.on("/", []() {
-    handleFileRead("/Inicial.HTML");
-});
-    server.on("/iniciar", handleIniciar);
-    server.on("/pausar", handlePausar);
-    server.on("/finalizar", handleFinalizar);
 
     server.onNotFound([]() {
-        if (!handleFileRead(server.uri())) {
+        if (!webServerHandler.handleFileRead(server.uri())) {
         server.send(404, "text/plain", "404: Not Found");
         }
     });
@@ -178,50 +62,7 @@ void setup() {
 
 void loop() {
   server.handleClient();
-
-  if (!tarefaPausada) {
-    unsigned long tempoDecorrido = millis() - tempoInicioTarefa;
-
-    switch (estadoAtual) {
-      case VERDE:
-        if (tempoDecorrido >= 50000 && tempoDecorrido < 60000) {
-          estadoAtual = AMARELO;
-          ligarReleAmarelo();
-        } else if (tempoDecorrido >= 60000) {
-          estadoAtual = VERMELHO;
-          ligarReleVermelho();
-        }
-        break;
-
-      case AMARELO:
-        if (tempoDecorrido >= 60000) {
-          estadoAtual = VERMELHO;
-          ligarReleVermelho();
-        }
-        break;
-
-      case VERMELHO:
-        if (tempoDecorrido >= 65000) {
-          estadoAtual = PISCA_ALERTA;
-          desligarTodosRele();
-        }
-        break;
-
-      case PISCA_ALERTA:
-        if (millis() % 500 < 250) {
-          digitalWrite(releVerde, HIGH);
-          digitalWrite(releVermelho, LOW);
-        } else {
-          digitalWrite(releVerde, LOW);
-          digitalWrite(releVermelho, HIGH);
-        }
-        digitalWrite(releAmarelo, LOW);
-        break;
-
-      case OFF:
-        break;
-    }
-  }
+  semaforoHandler.updateSemaforo();
 }
 
 
