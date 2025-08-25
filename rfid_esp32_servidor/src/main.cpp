@@ -40,14 +40,14 @@ WebServerHandler webServerHandler(server, rfidManager);
 // FUNÇÕES AUXILIARES
 // ===================================
 
-String getContentType(String filename) {
-  if (filename.endsWith(".html")) return "text/html";
-  else if (filename.endsWith(".css")) return "text/css";
-  else if (filename.endsWith(".js")) return "text/javascript";
-  else if (filename.endsWith(".png")) return "image/png";
-  else if (filename.endsWith(".jpg")) return "image/jpeg";
-  return "text/plain";
-}
+// String getContentType(String filename) {
+//   if (filename.endsWith(".html")) return "text/html";
+//   else if (filename.endsWith(".css")) return "text/css";
+//   else if (filename.endsWith(".js")) return "text/javascript";
+//   else if (filename.endsWith(".png")) return "image/png";
+//   else if (filename.endsWith(".jpg")) return "image/jpeg";
+//   return "text/plain";
+// }
 
 bool handleFileRead(String path) {
   if (path.endsWith("/")) {
@@ -70,16 +70,6 @@ bool handleFileRead(String path) {
     return true;
   }
   return false;
-}
-
-void handleStaticFile(const char* path, const char* contentType) {
-  if (SPIFFS.exists(path)) {
-    File file = SPIFFS.open(path, "r");
-    server.streamFile(file, contentType);
-    file.close();
-  } else {
-    server.send(404, "text/plain", "404: Not Found");
-  }
 }
 
 // Funções de controle dos relés
@@ -175,17 +165,6 @@ void setup() {
     server.on("/iniciar", handleIniciar);
     server.on("/pausar", handlePausar);
     server.on("/finalizar", handleFinalizar);
-
-    server.on("/style_inicial.css", []() { handleStaticFile("/style_inicial.css", "text/css"); });
-    server.on("/style_ordens.css", []() { handleStaticFile("/style_ordens.css", "text/css"); });
-    server.on("/style_cadastro.css", []() { handleStaticFile("/style_cadastro.css", "text/css"); });
-    server.on("/script_ordens.js", []() { handleStaticFile("/script_ordens.js", "text/javascript"); });
-    server.on("/script_cadastro.js", []() { handleStaticFile("/script_cadastro.js", "text/javascript"); });
-    server.on("/img/raspberry.png", []() { handleStaticFile("/img/raspberry.png", "image/png"); });
-    server.on("/img/toyota.png", []() { handleStaticFile("/img/toyota.png", "image/png"); });
-    server.on("/img/IF.png", []() { handleStaticFile("/img/IF.png", "image/png"); });
-    server.on("/img/embaraca2.png", []() { handleStaticFile("/img/embaraca2.png", "image/png"); });
-    server.on("/img/semaforo_def.png", []() { handleStaticFile("/img/semaforo_def.png", "image/png"); });
 
     server.onNotFound([]() {
         if (!handleFileRead(server.uri())) {

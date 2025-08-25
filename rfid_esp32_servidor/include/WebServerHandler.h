@@ -20,6 +20,10 @@ private:
     void handleOrdersPage();
     void handleStaticFile(const char* path, const char* contentType);
     void handleCadastroPage();
+    bool handleFileRead(String path);
+    void handleIniciar();
+    void handlePausar();
+    void handleFinalizar();
 
     // HTML da página web (pode ser movido para um arquivo .h separado)
     // const char* htmlContent = R"rawliteral(
