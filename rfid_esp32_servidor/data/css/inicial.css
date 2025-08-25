@@ -1,0 +1,256 @@
+/* ==================================================================== */
+/* Estilos Globais - Aplicados a todo o documento */
+/* ==================================================================== */
+
+.btn-azul {
+    background-color: #3498db; 
+    color: white;
+    padding: 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    cursor: pointer;
+}
+
+/* Reseta margens e preenchimentos e define o box-sizing para todos os elementos */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilos para o corpo da página */
+body {
+    font-family: Arial, sans-serif; 
+    background-color: #27524b; 
+    display: flex; 
+    min-height: 100vh;
+    color: #ffffff; 
+    position: relative;
+    padding-left: 10px; 
+}
+
+/* Pseudo-elemento para criar a barra vertical verde no lado esquerdo */
+body::before {
+    content: ''; 
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 10px; 
+    height: 100%; 
+    background-color: #00dd8b; 
+}
+
+/* ==================================================================== */
+/* Layout dos Painéis */
+/* ==================================================================== */
+
+/* Estilos para o painel esquerdo */
+.left-panel {
+    width: 50%; 
+    background-color: #27524b; 
+    padding: 60px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: flex-start; 
+}
+
+/* Estilos para a imagem da logo dentro do painel esquerdo */
+.left-panel img.logo {
+    width: 350px; 
+    margin-bottom: 30px; 
+}
+
+/* Estilos para o parágrafo de texto no painel esquerdo */
+.left-panel p {
+    font-size: 1.3em; 
+    max-width: 400px; 
+    line-height: 1.5em; 
+    margin-top: 20px; 
+}
+
+/* Estilos para a imagem principal (semáforo) no painel esquerdo */
+.left-panel .main-image {
+    width: 100%; 
+    max-width: 650px; 
+    margin-top: 40px; 
+}
+
+/* Estilos para o painel direito */
+.right-panel {
+    width: 50%; 
+    background-color: #234c44; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 40px 20px; 
+}
+
+/* ==================================================================== */
+/* Estilos do Formulário (Painel Direito) */
+/* ==================================================================== */
+
+/* Contêiner do formulário */
+.form-container {
+    background-color: #1f403b; 
+    padding: 50px; 
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    width: 500%;
+    max-width: 500px; 
+    text-align: center;
+}
+
+/* Contêiner das logos no topo do formulário */
+.top-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.top-logos .pico-img {
+    width: 170px;
+}
+
+.top-logos .pi-logo {
+    width: 40px;
+}
+
+/* Título do formulário */
+.form-container h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+/* Rótulos dos campos de formulário */
+.form-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.2em; 
+}
+
+/* Estilos para o contêiner do input e do botão de recarregar */
+.input-and-button {
+    display: flex; 
+    align-items: center; 
+    margin-bottom: 25px; 
+}
+
+/* Campo de entrada do formulário */
+.form-container input {
+    flex-grow: 1; 
+    padding: 16px;
+    border-radius: 6px;
+    border: none;
+    font-size: 1.1em;
+    text-align: center;
+    margin-right: 10px; 
+}
+
+/* Botão de recarregar */
+.refresh-btn {
+    background-color: #3498db; 
+    color: white;
+    padding: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    width: 50px; 
+    height: 50px; 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilos para os botões dentro do formulário */
+.form-container button {
+    flex: 1; 
+    padding: 16px; 
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em; 
+    cursor: pointer;
+    color: white;
+}
+
+/* Botão Acessar */
+.btn-acessar {
+    background-color: #00dd8b;
+}
+
+/* Botão Cadastrar-se */
+.btn-cadastrar {
+    background-color: #3a5cd5;
+}
+
+/* Contêiner dos botões para alinhá-los lado a lado */
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* ==================================================================== */
+/* Estilos das Logos de Parceiros */
+/* ==================================================================== */
+
+/* Contêiner das 3 logos de parceiros abaixo do formulário */
+.partner-logos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 550px; 
+    margin-top: 40px; 
+    gap: 30px; 
+}
+
+/* Estilos para cada imagem individual de parceiro */
+.partner-logo-img {
+    flex: 1;
+    max-width: 150px;
+    height: auto;
+    object-fit: contain; 
+}
+
+/* ==================================================================== */
+/* Media Queries para Responsividade */
+/* ==================================================================== */
+
+/* Estilos para telas com largura máxima de 768px (dispositivos móveis) */
+@media (max-width: 768px) {
+body {
+    flex-direction: column; 
+    padding-left: 0; 
+    padding-top: 10px; 
+}
+
+body::before {
+    width: 100%; 
+    height: 10px;
+}
+
+.left-panel, .right-panel {
+    width: 100%; 
+    padding: 20px; 
+}
+
+.form-container {
+    margin-top: 30px;
+}
+
+.partner-logos {
+    flex-direction: column; 
+    align-items: center;
+    max-width: 100%;
+    gap: 20px;
+}
+
+.partner-logo-img {
+    max-width: 120px; 
+}
+}

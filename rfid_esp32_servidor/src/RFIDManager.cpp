@@ -1,6 +1,5 @@
 #include "RFIDManager.h"
 
-// Define o bloco de dados
 #define DATA_BLOCK 4
 
 RFIDManager::RFIDManager(byte ssPin, byte rstPin) : rfid(ssPin, rstPin) {

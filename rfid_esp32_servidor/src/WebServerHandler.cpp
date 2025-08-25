@@ -10,6 +10,7 @@ void WebServerHandler::setupRoutes() {
         this->handleRoot();
     });
 
+    //Rotas arquivos(web)
     server.on("/read", [this]() {
         this->handleReadRFID();
     });
@@ -17,7 +18,8 @@ void WebServerHandler::setupRoutes() {
     server.on("/write", [this]() {
         this->handleWriteRFID();
     });
-    
+
+    //Rotas arquivos(.html)
     server.on("/ordens.html", [this]() { 
         this->handleOrdersPage();
     });
@@ -26,6 +28,7 @@ void WebServerHandler::setupRoutes() {
         this->handleCadastroPage();
     });
 
+    //Rotas img
     server.on("/img/raspberry.png", [this]() {
         this->handleStaticFile("/img/raspberry.png", "image/png");
     });
@@ -42,8 +45,30 @@ void WebServerHandler::setupRoutes() {
         this->handleStaticFile("/img/embaraca2.png", "image/png");
     });
 
-    server.on("/img/semaforo_def.png", [this]() {
-        this->handleStaticFile("/img/semaforo_def.png", "image/png");
+    //Rotas CSS
+    server.on("/css/inicial.css", [this]() {
+        this->handleStaticFile("/css/inicial.css", "text/css");
+    });
+    
+    server.on("/css/cadastro.css", [this]() {
+        this->handleStaticFile("/css/cadastro.css", "text/css");
+    });
+
+    server.on("/css/ordens.css", [this]() {
+        this->handleStaticFile("/css/ordens.css", "text/css");
+    });
+
+    //Rotas JS
+    server.on("/js/inicial.js", [this]() {
+        this->handleStaticFile("/js/inicial.js", "application/javascript");
+    });
+
+    server.on("/js/cadastro.js", [this]() {
+        this->handleStaticFile("/js/cadastro.js", "application/javascript");
+    });
+
+    server.on("/js/ordens.js", [this]() {
+        this->handleStaticFile("/js/ordens.js", "application/javascript");
     });
 
 }
@@ -70,7 +95,7 @@ void WebServerHandler::handleRoot() {
     file.close();
 }
 
-void WebServerHandler::handleOrdersPage() { // Adicione a implementação
+void WebServerHandler::handleOrdersPage() { 
     File file = SPIFFS.open("/ordens.html", "r");
     if (!file) {
         server.send(404, "text/plain", "Arquivo nao encontrado");

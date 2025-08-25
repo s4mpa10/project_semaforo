@@ -1,0 +1,122 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #0d3a33;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.wrapper {
+    background-color: #12423a;
+    padding: 40px 30px;
+    border-radius: 20px;
+    width: 700px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    text-align: center;
+}
+
+.logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.logos img {
+    height: 60px;
+    margin: 0 10px;
+}
+
+h1 {
+    color: white;
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.content {
+    background-color: white;
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+}
+
+.content h2 {
+    color: #12423a;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    background-color: #28a745;
+    cursor: pointer;
+    margin-top: 15px;
+    margin-right: 10px;
+}
+
+.btn:hover {
+    background-color: #218838;
+}
+
+#btnConfirmar {
+    display: block;
+    background-color: #007bff;
+}
+
+#btnConfirmar:hover {
+    background-color: #0056b3;
+}
+
+#btnListar {
+    background-color: #ffc107;
+    color: #000;
+}
+
+#btnListar:hover {
+    background-color: #e0a800;
+}
+
+.mensagem-rfid {
+    background-color: #f8f9fa;
+    border: 1px dashed #ccc;
+    padding: 15px;
+    border-radius: 10px;
+    color: #555;
+    text-align: center;
+    display: none;
+    margin-top: 15px;
+}
+
+.input-group {
+display: flex; 
+align-items: center;
+gap: 10px; 
+}
+
+.input-group input {
+flex: 1; 
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 5px;
+}
+
+.input-group button {
+padding: 10px 20px;
+border: none;
+border-radius: 5px;
+background-color: #007bff; 
+color: #fff;
+cursor: pointer;
+}
+
+h3 {
+color: #12423a;
+font-size: 22px;
+margin-bottom: 20px;
+}
