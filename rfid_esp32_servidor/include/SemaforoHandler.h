@@ -16,8 +16,12 @@ class SemaforoHandler {
 public:
     SemaforoHandler(WebServer& server);
     void setupRelays();
-    void setupRoutes();
     void updateSemaforo();
+
+    // Handlers para as rotas do servidor
+    void handleIniciar();
+    void handlePausar();
+    void handleFinalizar();
 
 private:
     WebServer& server;
@@ -35,10 +39,6 @@ private:
     void ligarReleAmarelo();
     void ligarReleVermelho();
 
-    // Handlers para as rotas do servidor
-    void handleIniciar();
-    void handlePausar();
-    void handleFinalizar();
 };
 
 #endif

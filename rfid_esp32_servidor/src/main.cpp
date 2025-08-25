@@ -45,8 +45,8 @@ void setup() {
     Serial.println(WiFi.localIP());
 
     // Inicializa os relés e o RFID
-    semaforoHandler.setupRelays();
     rfidManager.begin();
+    semaforoHandler.setupRelays();
     webServerHandler.setupRoutes();
 
 

@@ -2,7 +2,8 @@
 #define WEBSERVER_HANDLER_H
 
 #include <WebServer.h>
-#include "RFIDManager.h" // Inclui a classe RFIDManager
+#include "RFIDManager.h" 
+#include "SemaforoHandler.h"
 
 class WebServerHandler {
 public:
@@ -13,6 +14,7 @@ public:
 private:
     WebServer& server;
     RFIDManager& rfidManager;
+    SemaforoHandler& semaforoHandler; 
     
     // Métodos para manipulação das requisições
     void handleRoot();

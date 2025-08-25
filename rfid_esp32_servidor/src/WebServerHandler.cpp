@@ -2,7 +2,7 @@
 #include <SPIFFS.h>
 
 WebServerHandler::WebServerHandler(WebServer& server, RFIDManager& rfidManager) 
-    : server(server), rfidManager(rfidManager) {}
+    : server(server), rfidManager(rfidManager), semaforoHandler(semaforoHandler) {}
 
 void WebServerHandler::setupRoutes() {
     // Liga as rotas aos métodos da classe
@@ -74,6 +74,24 @@ void WebServerHandler::setupRoutes() {
     server.on("/js/ordens.js", [this]() {
         this->handleStaticFile("/js/ordens.js", "application/javascript");
     });
+
+    //Rotas Lâmpada
+    // Rotas de controle do semáforo - AGORA LIGADAS AO SEMAFOROHANDLER
+    server.on("/iniciar", [this]() {
+        // Agora você chama o método da instância do SemaforoHandler
+        semaforoHandler.handleIniciar();
+        server.send(200, "text/plain", "Comando de iniciar enviado!");
+    });
+
+    server.on("/pausar", [this]() {
+        semaforoHandler.handlePausar();
+        server.send(200, "text/plain", "Comando de pausar enviado!");
+    });
+
+    server.on("/finalizar", [this]() {
+        semaforoHandler.handleFinalizar();
+        server.send(200, "text/plain", "Comando de finalizar enviado!");
+    }); 
 
 }
 

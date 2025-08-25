@@ -30,19 +30,20 @@ void SemaforoHandler::ligarReleVermelho() {
     digitalWrite(releVermelho, HIGH);
 }
 
-void SemaforoHandler::setupRoutes() {
-    server.on("/iniciar", [this]() {
-        this->handleIniciar();
-    });
-    server.on("/pausar", [this]() {
-        this->handlePausar();
-    });
-    server.on("/finalizar", [this]() {
-        this->handleFinalizar();
-    });
-}
+// void SemaforoHandler::setupRoutes() {
+//     server.on("/iniciar", [this]() {
+//         this->handleIniciar();
+//     });
+//     server.on("/pausar", [this]() {
+//         this->handlePausar();
+//     });
+//     server.on("/finalizar", [this]() {
+//         this->handleFinalizar();
+//     });
+// }
 
 void SemaforoHandler::handleIniciar() {
+    Serial.println("Handler de iniciar acionado!");
     if (!tarefaPausada) {
         tempoInicioTarefa = millis();
         estadoAtual = VERDE;
