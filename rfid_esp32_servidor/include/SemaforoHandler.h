@@ -25,13 +25,13 @@ public:
 
 private:
     WebServer& server;
-    const int releVermelho = 27;
-    const int releAmarelo = 26;
-    const int releVerde = 25;
+    const int releVermelho = 26;
+    const int releAmarelo = 25;
+    const int releVerde = 27;
 
     SemaforoEstado estadoAtual = OFF;
     unsigned long tempoInicioTarefa = 0;
-    bool tarefaPausada = false;
+    bool tarefaPausada = true;
 
     // Métodos para controle dos relés
     void desligarTodosRele();

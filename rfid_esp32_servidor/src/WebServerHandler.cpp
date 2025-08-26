@@ -1,7 +1,7 @@
 #include "WebServerHandler.h"
 #include <SPIFFS.h>
 
-WebServerHandler::WebServerHandler(WebServer& server, RFIDManager& rfidManager) 
+WebServerHandler::WebServerHandler(WebServer& server, RFIDManager& rfidManager, SemaforoHandler& semaforoHandler) 
     : server(server), rfidManager(rfidManager), semaforoHandler(semaforoHandler) {}
 
 void WebServerHandler::setupRoutes() {

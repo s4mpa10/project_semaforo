@@ -7,8 +7,8 @@
 #include "SemaforoHandler.h"
 
 // Substitua com as suas credenciais de rede
-const char* ssid = "Sampaio";
-const char* password = "03113012S";
+const char* ssid = "S23 Ultra de Universitario";
+const char* password = "senha123";
 
 // Pinagem do MFRC522
 #define SS_PIN 5
@@ -17,8 +17,8 @@ const char* password = "03113012S";
 // Instâncias das classes
 WebServer server(80);
 RFIDManager rfidManager(SS_PIN, RST_PIN);
-WebServerHandler webServerHandler(server, rfidManager);
 SemaforoHandler semaforoHandler(server);
+WebServerHandler webServerHandler(server, rfidManager,semaforoHandler);
 
 void setup() {
     Serial.begin(115200);
@@ -46,8 +46,8 @@ void setup() {
 
     // Inicializa os relés e o RFID
     rfidManager.begin();
-    semaforoHandler.setupRelays();
     webServerHandler.setupRoutes();
+    semaforoHandler.setupRelays();
 
 
     server.onNotFound([]() {

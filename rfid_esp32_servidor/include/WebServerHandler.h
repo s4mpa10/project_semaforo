@@ -7,7 +7,7 @@
 
 class WebServerHandler {
 public:
-    WebServerHandler(WebServer& server, RFIDManager& rfidManager);
+    WebServerHandler(WebServer& server, RFIDManager& rfidManager, SemaforoHandler& semaforoHandler);
     void setupRoutes();
     bool handleFileRead(String path);
 
