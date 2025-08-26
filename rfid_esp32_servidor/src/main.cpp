@@ -7,8 +7,8 @@
 #include "SemaforoHandler.h"
 
 // Substitua com as suas credenciais de rede
-const char* ssid = "*******";
-const char* password = "*******";
+const char* ssid = "Sampaio";
+const char* password = "03113012S";
 
 // Pinagem do MFRC522
 #define SS_PIN 5
