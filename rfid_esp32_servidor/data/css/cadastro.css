@@ -82,6 +82,24 @@ h1 {
     background-color: #e0a800;
 }
 
+.botao {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+
+.btn-voltar{
+    background-color: #0b7e6d; 
+    color: white;
+    padding: 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    cursor: pointer;
+
+}
+
 .mensagem-rfid {
     background-color: #f8f9fa;
     border: 1px dashed #ccc;

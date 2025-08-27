@@ -123,6 +123,25 @@ background-color: #0d3a33;
     color: white;
 }
 
+.botao {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+
+.btn-voltar{
+    background-color: #0b7e6d; 
+    color: white;
+    padding: 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    cursor: pointer;
+
+}
+
+
 .iniciar { background-color: #28a745; }
 .pausar { background-color: #ffc107; color: black; }
 .finalizar { background-color: #dc3545; }

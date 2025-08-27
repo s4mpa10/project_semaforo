@@ -7,8 +7,8 @@
 #include "SemaforoHandler.h"
 
 // Substitua com as suas credenciais de rede
-const char* ssid = "S23 Ultra de Universitario";
-const char* password = "senha123";
+const char* ssid = "Sampaio";
+const char* password = "03113012S";
 
 // Pinagem do MFRC522
 #define SS_PIN 5
@@ -70,11 +70,3 @@ void loop() {
 
 
 
-
-
-
-
-    // A lógica de leitura em loop foi movida para o WebServerHandler
-    // para ser acionada via requisição. Se precisar de uma leitura
-    // contínua, você pode chamar o rfidManager.isNewCardPresentAndRead()
-    // aqui também.
